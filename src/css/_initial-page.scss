@@ -13,9 +13,14 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.moveable-item {
+.picture {
   width: 100px;
   height: 100px;
   background: darkgoldenrod;
-  position: relative;
+  position: absolute;
+}
+
+.text-box {
+  font-size: 2em;
+  position: absolute;
 }
