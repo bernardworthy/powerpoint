@@ -1,0 +1,21 @@
+body {
+  width: 1000px;
+  height: 800px;
+}
+
+.container {
+  width: 800px;
+  height: 500px;
+  background: rgb(226, 226, 226);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.moveable-item {
+  width: 100px;
+  height: 100px;
+  background: darkgoldenrod;
+  position: relative;
+}
