@@ -3,6 +3,81 @@ body {
   height: 800px;
 }
 
+.toolbar {
+  height: 10%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #f1f1f1;
+  border: solid 1px #C3C3C3;
+}
+
+.toolbar-item-list {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 28.7%;
+}
+
+.toolbar-item {
+  height: 80%;
+  width: 10%;
+  top: 10%;
+  position: relative;
+  margin-left: 1em;
+  background: #d3d3d3;
+  border: solid 1px #C8C8C8;
+  float: left;
+}
+
+.slide-view {
+  height: 100%;
+  width: 25%;
+  position: absolute;
+  top: 10.2%;
+  left: 0;
+  background: #f1f1f1;
+  border: solid 1px #C3C3C3;
+}
+
+.slide-list {
+  height: 80%;
+  width: 80%;
+  top: 5%;
+  left: 10%;
+  position: absolute;
+}
+
+.slide-thumbnail {
+  height: 30%;
+  width: 100%;
+  margin-bottom: 2.2em;
+  position: relative;
+  background: white;
+  border: solid 1px #e6e6e6;
+}
+
+.edit-view {
+  height: 100%;
+  width: 75%;
+  position: absolute;
+  top: 10.2%;
+  left: 25%;
+  background: #f1f1f1;
+  border: solid 1px #c3c3c3;
+}
+
+.edit-slide {
+  height: 80%;
+  width: 90%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  background: white;
+  border: solid 1px #e6e6e6;
+}
+
 .container {
   width: 800px;
   height: 500px;
