@@ -2,89 +2,128 @@ app.showInitialPage = function () {
 
   // var gridSize = 50;
 
-  var container = $('.container');
-  var picture = $('.picture');
-  var textBox = $('.text-box');
 
-  function drag(element) {
+  $('body').mousedown(function(e) {
 
-    element.mousedown(function(e) {
-      var moveableItem = $(this);
-      var position = moveableItem.position();
-      var offsetY = e.pageY - position.top;
-      var offsetX = e.pageX - position.left;
+    var container = $('.container');
+    var picture = $('.picture');
+    var textBox = $('.text-box');
+    // var target = e.target;
+    //
+    // console.log(target);
 
-      if ((e.pageX - moveableItem.offset().left) > 10 && (e.pageX - moveableItem.offset().left) < (moveableItem.css('width').replace(/px/g , '') - 10) && (e.pageY - moveableItem.offset().top) > 10 && (e.pageY - moveableItem.offset().top) < (moveableItem.css('height').replace(/px/g , '') - 10) ) {
-        $('body').on('mousemove', moveItem);
-        $('body').on('mouseup', stopMove);
-      } else {
-        $('body').on('mousemove', resizeItem);
-        $('body').on('mouseup', stopResize);
-      }
+    drag(picture);
+    drag(textBox);
 
-      function moveItem(e) {
+    function drag(element) {
 
-        var mousePosition = {
-          top: e.pageY - offsetY,
-          left: e.pageX - offsetX
-        };
+      element.mousedown(function(e) {
+        // console.log($('.picture').index(this));
 
-        if (mousePosition.top < 0) {
-          mousePosition.top = 0;
-        }
-        if (mousePosition.top > container.css('height').replace(/px/g , '') - moveableItem.css('height').replace(/px/g , '')) {
-          mousePosition.top = container.css('height').replace(/px/g , '') - moveableItem.css('height').replace(/px/g , '');
-        }
-        if (mousePosition.left < 0) {
-          mousePosition.left = 0;
-        }
-        if (mousePosition.left > container.css('width').replace(/px/g , '') - moveableItem.css('width').replace(/px/g , '')) {
-          mousePosition.left = container.css('width').replace(/px/g , '') - moveableItem.css('width').replace(/px/g , '');
+        var moveableItem = $(this);
+        // console.log(moveableItem);
+        var position = moveableItem.position();
+        var offsetY = e.pageY - position.top;
+        var offsetX = e.pageX - position.left;
+        var elemWidth = picture.width();
+        var elemHeight = picture.height();
+
+        if ((e.pageX - moveableItem.offset().left) > elemWidth/10 && (e.pageX - moveableItem.offset().left) < (moveableItem.width() - elemWidth/10) && (e.pageY - moveableItem.offset().top) > elemHeight/10 && (e.pageY - moveableItem.offset().top) < (moveableItem.height() - elemHeight/10) ) {
+          $('body').on('mousemove', moveItem);
+          $('body').on('mouseup', stopMove);
+        } else {
+          $('body').on('mousemove', resizeItem);
+          $('body').on('mouseup', stopResize);
         }
 
-        moveableItem.css(mousePosition);
-      }
+        function moveItem(e) {
 
-      function resizeItem(e) {
-        console.log(offsetX);
+          var mousePosition = {
+            top: e.pageY - offsetY,
+            left: e.pageX - offsetX
+          };
 
-        var mousePosition = {
-          // top: e.pageY - offsetY,
-          // left: e.pageX - offsetX,
-          height: e.pageY - moveableItem.offset().top,
-          width: e.pageX - moveableItem.offset().left
-        };
+          if (mousePosition.top < 0) {
+            mousePosition.top = 0;
+          }
+          if (mousePosition.top > container.height() - moveableItem.height()) {
+            mousePosition.top = container.height() - moveableItem.height();
+          }
+          if (mousePosition.left < 0) {
+            mousePosition.left = 0;
+          }
+          if (mousePosition.left > container.width() - moveableItem.width()) {
+            mousePosition.left = container.width() - moveableItem.width();
+          }
 
-        moveableItem.css(mousePosition);
-      }
+          moveableItem.css(mousePosition);
+        }
 
-      // Unbind our body-level mouse events so we
-      // don't run out of memory!
-      function stopMove() {
-        $('body').off('mousemove', moveItem);
-        $('body').off('mouseup', stopMove);
-      }
+        function resizeItem(e) {
+          console.log(offsetX);
 
-      function stopResize() {
-        $('body').off('mousemove', resizeItem);
-        $('body').off('mouseup', stopResize);
-      }
+          var mousePosition = {
+            height: e.pageY - moveableItem.offset().top,
+            width: e.pageX - moveableItem.offset().left
+          };
 
+          moveableItem.css(mousePosition);
+        }
+
+        // Unbind our body-level mouse events so we
+        // don't run out of memory!
+        function stopMove() {
+          $('body').off('mousemove', moveItem);
+          $('body').off('mouseup', stopMove);
+        }
+
+        function stopResize() {
+          $('body').off('mousemove', resizeItem);
+          $('body').off('mouseup', stopResize);
+        }
+
+      });
+    // }
+    }
+
+    // function edit(element) {
+    //   element.dblclick(function(e) {
+    //     var editableItem = $(this);
+    //     var position = editableItem.position();
+    //
+    //     console.log(position.top);
+    //   });
+    // }
+
+
+    // edit(picture);
+    // drag(textBox);
+    // edit(textBox);
+
+  });
+
+  function addPicture() {
+    $('.add-picture').click(function(e) {
+      var dataId = $('.picture').length;
+      var newPicture = '<div class="picture" data-id="' + dataId + '"></div>';
+      // console.log(dataId);
+
+      $('.container').append(newPicture);
+      // container.prepend(newPicture);
+      // drag();
     });
   }
 
-  function edit(element) {
-    element.dblclick(function(e) {
-      var editableItem = $(this);
-      var position = editableItem.position();
+  function addText() {
+    $('.add-text').click(function(e) {
+      var dataId = $('.text-box').length;
+      var newTextBox = '<div class="text-box" data-id="' + dataId + '">New Text Box</div>';
+      // console.log(dataId);
 
-      console.log(position.top);
+      $('.container').append(newTextBox);
     });
   }
 
-  drag(picture);
-  edit(picture);
-  drag(textBox);
-  edit(textBox);
-
+  addPicture();
+  addText();
 };
